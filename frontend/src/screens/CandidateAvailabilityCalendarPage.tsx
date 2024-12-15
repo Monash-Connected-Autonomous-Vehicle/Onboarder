@@ -4,9 +4,9 @@ import { DndProvider } from "react-dnd"; // Provides the drag-and-drop context f
 import { HTML5Backend } from "react-dnd-html5-backend"; // HTML5 backend for react-dnd, handles drag-and-drop interactions
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop"; // Higher-order component to enable drag-and-drop on the calendar
 import { format } from "date-fns"; // Utility for formatting dates
-import parse from "date-fns/parse"; // Utility for parsing dates
-import startOfWeek from "date-fns/startOfWeek"; // Utility for determining the start of the week
-import getDay from "date-fns/getDay"; // Utility for getting the day of the week
+import { parse } from "date-fns/parse"; // Utility for parsing dates
+import { startOfWeek } from "date-fns/startOfWeek"; // Utility for determining the start of the week
+import { getDay } from "date-fns/getDay"; // Utility for getting the day of the week
 import { Button } from "@mui/material"; // Import the Button component
 import "react-big-calendar/lib/css/react-big-calendar.css"; // Import base styles for the calendar
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css"; // Import additional styles for drag-and-drop functionality
@@ -53,7 +53,9 @@ const CandidateAvailabilityCalendarPage: React.FC = () => {
   scrollToTime.setHours(9, 0, 0);
 
   // First Ill set an arbitrary cutoff day, for example today
-  const cutoffDate = new Date(interviewPreferenceDeadline);
+  const cutoffDate = new Date(
+    interviewPreferenceDeadline || "1970-01-01T00:00:00Z",
+  );
 
   // Function to handle the selection of a new time slot in the calendar
   const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
@@ -75,43 +77,43 @@ const CandidateAvailabilityCalendarPage: React.FC = () => {
     }
   };
 
-  // Function to handle resizing of existing events
-  const handleEventResize = ({
-    event,
-    start,
-    end,
-  }: {
-    event: Event;
-    start: Date;
-    end: Date;
-  }) => {
-    const updatedEvents = eventsList.map((existingEvent) =>
-      existingEvent === event
-        ? { ...existingEvent, start, end }
-        : existingEvent,
-    );
-    setEventsList(updatedEvents);
-    // handleSave(updatedEvents); // Automatically save changes
-  };
+  // // Function to handle resizing of existing events
+  // const handleEventResize = ({
+  //   event,
+  //   start,
+  //   end,
+  // }: {
+  //   event: Event;
+  //   start: Date;
+  //   end: Date;
+  // }) => {
+  //   const updatedEvents = eventsList.map((existingEvent) =>
+  //     existingEvent === event
+  //       ? { ...existingEvent, start, end }
+  //       : existingEvent,
+  //   );
+  //   setEventsList(updatedEvents);
+  //   // handleSave(updatedEvents); // Automatically save changes
+  // };
 
   // Function to handle dragging (moving) existing events to a new time slot
-  const handleEventDrop = ({
-    event,
-    start,
-    end,
-  }: {
-    event: Event;
-    start: Date;
-    end: Date;
-  }) => {
-    const updatedEvents = eventsList.map((existingEvent) =>
-      existingEvent === event
-        ? { ...existingEvent, start, end }
-        : existingEvent,
-    );
-    setEventsList(updatedEvents);
-    // handleSave(updatedEvents); // Automatically save changes
-  };
+  // const handleEventDrop = ({
+  //   event,
+  //   start,
+  //   end,
+  // }: {
+  //   event: Event;
+  //   start: Date;
+  //   end: Date;
+  // }) => {
+  //   const updatedEvents = eventsList.map((existingEvent) =>
+  //     existingEvent === event
+  //       ? { ...existingEvent, start, end }
+  //       : existingEvent,
+  //   );
+  //   setEventsList(updatedEvents);
+  //   // handleSave(updatedEvents); // Automatically save changes
+  // };
 
   const API_URL = `${BASE_API_URL}`;
 
@@ -209,8 +211,8 @@ const CandidateAvailabilityCalendarPage: React.FC = () => {
           selectable // Allow users to select time slots to create new events
           resizable // Enable resizing of existing events
           onSelectSlot={handleSelectSlot} // Handle new slot selection
-          onEventResize={handleEventResize} // Handle resizing of existing events
-          onEventDrop={handleEventDrop} // Handle dragging (moving) of existing events
+          // onEventResize={handleEventResize} // Handle resizing of existing events
+          // onEventDrop={handleEventDrop} // Handle dragging (moving) of existing events
           titleAccessor={(event) => (event as Event).title} // Specify how to access the title of an event
           min={startOfDay(today)} // Earliest selectable date
           max={endOfDay(twoWeeksLater)} // Latest selectable date (2 weeks from now)

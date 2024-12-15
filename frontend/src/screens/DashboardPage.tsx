@@ -4,7 +4,10 @@ import { DashboardTable } from "../components/DashboardTable";
 import styled from "styled-components";
 import AddTeamModal from "../components/AddTeamModal";
 import { useAuthStore } from "../util/stores/authStore";
-import { useStudentTeamStore } from "../util/stores/studentTeamStore";
+import {
+  StudentTeam,
+  useStudentTeamStore,
+} from "../util/stores/studentTeamStore";
 import axios from "axios";
 import { getBaseAPIURL } from "../util/Util";
 
@@ -19,6 +22,7 @@ const DashboardPage: React.FC = () => {
   const [isAddTeamModalOpen, setIsAddTeamModalOpen] = useState(false);
   const BASE_API_URL = getBaseAPIURL();
   const { studentTeams, setStudentTeams } = useStudentTeamStore();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [newTeam, setNewTeam] = useState<any>(null);
 
   const { user } = useAuthStore();
@@ -55,13 +59,14 @@ const DashboardPage: React.FC = () => {
         role: "O",
       });
 
-      const newStudentTeam = {
+      const newStudentTeam: StudentTeam = {
         id: newTeamId,
         student_team_id: newTeamId,
         student_team_name: teamName,
         user_team_role: "Owner",
         student_team_owner: user.email,
         student_team_description: teamDescription,
+        student_team_meeting_link: "",
       };
 
       setStudentTeams([...studentTeams, newStudentTeam]);

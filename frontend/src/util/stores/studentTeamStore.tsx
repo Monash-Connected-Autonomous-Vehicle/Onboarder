@@ -19,10 +19,12 @@ interface StudentTeamStore {
 
 export const useStudentTeamStore = create<StudentTeamStore>((set) => ({
   studentTeams: [],
-  setStudentTeams: (teams) => set({ studentTeams: teams }),
-  addStudentTeam: (team) =>
-    set((state) => ({ studentTeams: [...state.studentTeams, team] })),
-  removeStudentTeam: (id) =>
+  setStudentTeams: (teams: StudentTeam[]) => set({ studentTeams: teams }),
+  addStudentTeam: (team: StudentTeam) =>
+    set((state) => ({
+      studentTeams: [...state.studentTeams, team],
+    })),
+  removeStudentTeam: (id: number) =>
     set((state) => ({
       studentTeams: state.studentTeams.filter((team) => team.id !== id),
     })),

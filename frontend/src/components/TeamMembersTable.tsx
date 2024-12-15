@@ -11,7 +11,7 @@ import React from "react";
 import PermissionButton from "./PermissionButton";
 import RoleIcon from "../util/RoleIcon";
 
-interface TeamMember {
+export interface TeamMember {
   email: string;
   role: string;
   profile_id: number;

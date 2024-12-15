@@ -3,10 +3,10 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { DndProvider } from "react-dnd"; // Provides the drag-and-drop context for the calendar
 import { HTML5Backend } from "react-dnd-html5-backend"; // HTML5 backend for react-dnd, handles drag-and-drop interactions
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop"; // Higher-order component to enable drag-and-drop on the calendar
-import format from "date-fns/format"; // Utility for formatting dates
-import parse from "date-fns/parse"; // Utility for parsing dates
-import startOfWeek from "date-fns/startOfWeek"; // Utility for determining the start of the week
-import getDay from "date-fns/getDay"; // Utility for getting the day of the week
+import { format } from "date-fns/format"; // Utility for formatting dates
+import { parse } from "date-fns/parse"; // Utility for parsing dates
+import { startOfWeek } from "date-fns/startOfWeek"; // Utility for determining the start of the week
+import { getDay } from "date-fns/getDay"; // Utility for getting the day of the week
 import "react-big-calendar/lib/css/react-big-calendar.css"; // Import base styles for the calendar
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css"; // Import additional styles for drag-and-drop functionality
 import { enAU } from "date-fns/locale";
@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../util/stores/authStore";
 import axios from "axios";
 import { getBaseAPIURL } from "../util/Util";
+import { Interview } from "./InterviewSchedulingPage";
 
 // Locale configuration for the calendar using date-fns
 const locales = { "en-AU": enAU };
@@ -89,7 +90,7 @@ const UserAvailabilityCalendarPage: React.FC = () => {
         `${BASE_API_URL}/profile/${profileId}/application`,
       );
       const data = response.data;
-      const interviewDates = data.map((interview: any) => {
+      const interviewDates = data.map((interview: Interview) => {
         return {
           start: new Date(interview.interview_date),
           end: new Date(
@@ -135,45 +136,45 @@ const UserAvailabilityCalendarPage: React.FC = () => {
     }
   };
 
-  const handleSelectEvent = ({ start, end }: { start: Date; end: Date }) => {
-    setEventsList(
-      eventsList.filter((event) => event.start != start && event.end != end),
-    );
-  };
+  // const handleSelectEvent = ({ start, end }: { start: Date; end: Date }) => {
+  //   setEventsList(
+  //     eventsList.filter((event) => event.start != start && event.end != end),
+  //   );
+  // };
 
-  const handleEventResize = ({
-    event,
-    start,
-    end,
-  }: {
-    event: Event;
-    start: Date;
-    end: Date;
-  }) => {
-    const updatedEvents = eventsList.map((existingEvent) =>
-      existingEvent === event
-        ? { ...existingEvent, start, end }
-        : existingEvent,
-    );
-    setEventsList(updatedEvents);
-  };
+  // const handleEventResize = ({
+  //   event,
+  //   start,
+  //   end,
+  // }: {
+  //   event: Event;
+  //   start: Date;
+  //   end: Date;
+  // }) => {
+  //   const updatedEvents = eventsList.map((existingEvent) =>
+  //     existingEvent === event
+  //       ? { ...existingEvent, start, end }
+  //       : existingEvent,
+  //   );
+  //   setEventsList(updatedEvents);
+  // };
 
-  const handleEventDrop = ({
-    event,
-    start,
-    end,
-  }: {
-    event: Event;
-    start: Date;
-    end: Date;
-  }) => {
-    const updatedEvents = eventsList.map((existingEvent) =>
-      existingEvent === event
-        ? { ...existingEvent, start, end }
-        : existingEvent,
-    );
-    setEventsList(updatedEvents);
-  };
+  // const handleEventDrop = ({
+  //   event,
+  //   start,
+  //   end,
+  // }: {
+  //   event: Event;
+  //   start: Date;
+  //   end: Date;
+  // }) => {
+  //   const updatedEvents = eventsList.map((existingEvent) =>
+  //     existingEvent === event
+  //       ? { ...existingEvent, start, end }
+  //       : existingEvent,
+  //   );
+  //   setEventsList(updatedEvents);
+  // };
 
   const handleSave = async () => {
     try {
@@ -193,7 +194,8 @@ const UserAvailabilityCalendarPage: React.FC = () => {
   const scrollToTime = new Date();
   scrollToTime.setHours(9, 0, 0);
 
-  const eventStyleGetter = (event) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const eventStyleGetter = (event: any) => {
     if (event.outlined) {
       return {
         className: "outlined",
@@ -242,18 +244,18 @@ const UserAvailabilityCalendarPage: React.FC = () => {
         <DragAndDropCalendar
           localizer={localizer}
           events={[...eventsList, ...interviewDates]} // Combine availability and interview dates
-          startAccessor={(event: Event) => event.start} // Specify how to access the start date of an event
-          endAccessor={(event: Event) => event.end} // Specify how to access the end date of an event
+          // startAccessor={(event: Event) => event.start} // Specify how to access the start date of an event
+          // endAccessor={(event: Event) => event.end} // Specify how to access the end date of an event
           style={{ height: "90%" }}
           defaultView="week"
           views={["week"]}
           selectable // Allow users to select time slots to create new events
           resizable // Enable resizing of existing events
           onSelectSlot={handleSelectSlot} // Handle new slot selection
-          onEventResize={handleEventResize} // Handle resizing of existing events
-          onEventDrop={handleEventDrop} // Handle dragging (moving) of existing events
-          titleAccessor={(event: Event) => event.title} // Specify how to access the title of an event
-          onSelectEvent={handleSelectEvent} // This is for deleting event
+          // onEventResize={handleEventResize} // Handle resizing of existing events
+          // onEventDrop={handleEventDrop} // Handle dragging (moving) of existing events
+          // titleAccessor={(event: Event) => event.title} // Specify how to access the title of an event
+          // onSelectEvent={handleSelectEvent} // This is for deleting event
           scrollToTime={scrollToTime}
           eventPropGetter={eventStyleGetter}
         />

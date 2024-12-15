@@ -24,14 +24,21 @@ Recruitment platform for Monash University student teams
 ### Backend
 Use either the [original backend](#back-end-setup) (aws lambda & sam) or the flask server (easier for deployment)
 
-#### Flask
-First time set-up only:
+#### Flask Deployment on AWS EC2
+[Follow these instructions](https://github.com/yeshwanthlm/YouTube/blob/main/flask-on-aws-ec2.md)
+Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
+
+#### Local Flask Deployment
 1. Create virtual environment `.venv` and install from requirements.py 
   - `python3 -m venv .venv`
   - `. .venv/bin/activate`
   - `pip install -r requirements.txt`
 
-2. Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server direcotyr 
+2. Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
+
+
+### Front
+[Good guide](https://www.sammeechward.com/deploying-full-stack-js-to-aws-ec2)
 
 ## Table of Contents
 

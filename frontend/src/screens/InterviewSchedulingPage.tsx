@@ -58,6 +58,7 @@ export interface InterviewEventProps {
 }
 
 export interface Interview {
+  name: string;
   email: string; // Applicant email
   profile_id: number; // Interviewer ID
   interview_date: Date;
@@ -79,12 +80,12 @@ const InterviewSchedulingPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [round, setRound] = useState<RoundProps | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  // const [, setError] = useState<string | null>(null);
   const [applications, setApplications] = useState<SingleApplicationProps[]>(
     [],
   );
   const authStore = useAuthStore();
-  const { setSelectedApplicant, selectedApplicant } = useApplicantStore();
+  const { setSelectedApplicant } = useApplicantStore();
   const recruitmentDetails = useRecruitmentStore(
     (state) => state.recruitmentDetails,
   );
@@ -113,7 +114,7 @@ const InterviewSchedulingPage = () => {
   });
 
   const handleCloseSnackbar = (
-    event?: React.SyntheticEvent | Event,
+    _event: React.SyntheticEvent | Event,
     reason?: string,
   ) => {
     if (reason === "clickaway") {
@@ -164,7 +165,7 @@ const InterviewSchedulingPage = () => {
         `${BASE_API_URL}/opening/${selectedOpening?.id}/application`,
       );
       const onlyCandidate = applicationsResponse.data.filter(
-        (app) => app.status == "C",
+        (app: { status: string }) => app.status == "C",
       );
       setApplications(onlyCandidate);
       const roundResponse = await axios.get(
@@ -221,6 +222,7 @@ const InterviewSchedulingPage = () => {
 
   // Handler functions
   // Send invites to all applicants with interview dates
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSendInvite = async (e: any) => {
     if (!applications) {
       alert("No applications found.");
@@ -246,6 +248,7 @@ const InterviewSchedulingPage = () => {
       );
 
       const failedInvites = response.data.results.filter(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (result: any) => result.success === false,
       );
 
@@ -268,55 +271,53 @@ const InterviewSchedulingPage = () => {
     }
   };
 
-  const handleScheduleInterviews = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await axios.post(
-        `${BASE_API_URL}/opening/${selectedOpening?.id}/schedule-interviews/`,
-      );
+  // const handleScheduleInterviews: () => Promise<false | undefined> = async () => {
+  //   setLoading(true);
+  //   setError(null);
+  //   try {
+  //     const response = await axios.post(
+  //       `${BASE_API_URL}/opening/${selectedOpening?.id}/schedule-interviews/`,
+  //     );
 
-      if (response.data.optimisationSuccess === false) {
-        setError("Optimisation script failed");
-        setSnackbar({
-          open: true,
-          message: "Optimisation script failed",
-          severity: "error",
-        });
-        setLoading(false);
-        return false;
-      }
+  //     if (response.data.optimisationSuccess === false) {
+  //       setError("Optimisation script failed");
+  //       setSnackbar({
+  //         open: true,
+  //         message: "Optimisation script failed",
+  //         severity: "error",
+  //       });
+  //       setLoading(false);
+  //       return false;
+  //     }
 
-      fetchData();
-      setSnackbar({
-        open: true,
-        message: "Successfully scheduled interviews",
-        severity: "success",
-      });
-    } catch (err) {
-      // setError(err.message || "An error occurred while scheduling interviews");
-      if (axios.isAxiosError(err)) {
-        console.error("Error response data:", err.response?.data);
-        console.error("Error response status:", err.response?.status);
-        console.error("Error response headers:", err.response?.headers);
-        setError(
-          err.response?.data?.message ||
-            "An error occurred while scheduling interviews",
-        );
-        setSnackbar({
-          open: true,
-          message: "An error occurred while scheduling interviews",
-          severity: "error",
-        });
-      } else {
-        console.error("Error message:", err.message);
-        setError(
-          err.message || "An error occurred while scheduling interviews",
-        );
-      }
-    }
-    setLoading(false);
-  };
+  //     fetchData();
+  //     setSnackbar({
+  //       open: true,
+  //       message: "Successfully scheduled interviews",
+  //       severity: "success",
+  //     });
+  //   } catch (err) {
+  //     // setError(err.message || "An error occurred while scheduling interviews");
+  //     if (axios.isAxiosError(err)) {
+  //       console.error("Error response data:", err.response?.data);
+  //       console.error("Error response status:", err.response?.status);
+  //       console.error("Error response headers:", err.response?.headers);
+  //       setError(
+  //         err.response?.data?.message ||
+  //           "An error occurred while scheduling interviews",
+  //       );
+  //       setSnackbar({
+  //         open: true,
+  //         message: "An error occurred while scheduling interviews",
+  //         severity: "error",
+  //       });
+  //     } else {
+  //       console.error("Error message:", err);
+  //       setError("An error occurred while scheduling interviews",);
+  //     }
+  //   }
+  //   setLoading(false);
+  // };
 
   // Row generation function
   const generateRowFunction = (applications: SingleApplicationProps[]) => {
@@ -404,11 +405,11 @@ const InterviewSchedulingPage = () => {
                 subject="Interview"
                 variant="contained"
                 onClick={handleSendInvite}
-                disabled={
-                  loading ||
-                  interviewScheduledCount == 0 ||
-                  selectedOpening?.calendar_invites_sent
-                }
+                // disabled={
+                //   loading ||
+                //   interviewScheduledCount == 0 ||
+                //   selectedOpening?.calendar_invites_sent
+                // }
                 style={{ marginLeft: "1rem" }}
                 tooltipText="You do not have permission to send interview invites"
               >
@@ -427,7 +428,7 @@ const InterviewSchedulingPage = () => {
             arrow
           >
             <span>
-              <PermissionButton
+              {/* <PermissionButton
                 action="schedule"
                 subject="Interview"
                 variant="contained"
@@ -445,7 +446,7 @@ const InterviewSchedulingPage = () => {
                 ) : (
                   "Run Scheduling Algorithm"
                 )}
-              </PermissionButton>
+              </PermissionButton> */}
             </span>
           </Tooltip>
         </Box>

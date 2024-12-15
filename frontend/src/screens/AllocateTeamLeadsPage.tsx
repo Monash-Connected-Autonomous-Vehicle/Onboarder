@@ -32,7 +32,7 @@ const AllocateTeamLeadsPage = () => {
   // const setSelectedMember = useMemberStore((state) => state.setSelectedMember);
   const selectedMember = useMemberStore((state) => state.selectedMember);
   const { team_id } = useAuthStore();
-  const teamLeadId = selectedMember?.id;
+  const teamLeadId = selectedMember?.id ?? 1;
 
   const handleAllocate = async (openingId: number) => {
     if (!teamLeadId || !openingId) {

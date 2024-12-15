@@ -8,6 +8,7 @@ interface AuthState {
   profile: any | null;
   loading: boolean;
   team_id: any | null;
+  team_meeting_link: string | null;
   team_name: string | null;
   role: UserRole | null;
   ability: AppAbility | null;
@@ -28,6 +29,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   profile: null,
   loading: true,
   team_id: null,
+  team_meeting_link: null,
   team_name: null,
   role: null,
   ability: null,
@@ -81,7 +83,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   updateTeamAndRole: (
-    team_id: any | null,
+    team_id: unknown | null,
     team_meeting_link: string | null,
     team_name: string | null,
     role: UserRole | null,

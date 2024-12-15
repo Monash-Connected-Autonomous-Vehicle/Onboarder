@@ -1,7 +1,6 @@
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import styled from "styled-components";
 import { useTheme as useMuiTheme } from "@mui/material/styles";
-import { useTheme } from "../util/ThemeContext";
 
 const BackIconWrapper = styled.div<{ theme: any }>`
   display: flex;

@@ -26,27 +26,27 @@ import PermissionButton from "../components/PermissionButton";
 import ConfigureInterviewLinkModal from "../components/ConfigureInterviewLinkModal";
 
 // Css style file
-const styles = {
-  scrollableTableBody: {
-    // height: "calc(100vh - 650px)",
-    maxHeight: "calc(4 * 69.5px + 57px)",
-    minHeight: "69.5px",
-    overflowY: "auto",
-    display: "block",
-  },
-};
+// const styles = {
+//   scrollableTableBody: {
+//     // height: "calc(100vh - 650px)",
+//     maxHeight: "calc(4 * 69.5px + 57px)",
+//     minHeight: "69.5px",
+//     overflowY: "auto",
+//     display: "block",
+//   },
+// };
 
 // Css style for the modal
-const styleLink = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 700,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
+// const styleLink = {
+//   position: "absolute" as const,
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   width: 700,
+//   bgcolor: "background.paper",
+//   boxShadow: 24,
+//   p: 4,
+// };
 
 const ViewRecruitmentRoundsPage = () => {
   // State hooks
@@ -56,7 +56,7 @@ const ViewRecruitmentRoundsPage = () => {
   const handleOpenLink = () => setOpenLink(true);
   const handleCloseLinkModal = () => setOpenLink(false);
   const navigate = useNavigate();
-  const [filter, setFilter] = useState("");
+  const [filter] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -143,6 +143,7 @@ const ViewRecruitmentRoundsPage = () => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filterData = (round: any) => {
     const { student_team_name, id, status, semester, year, openings_count } =
       round;
@@ -155,6 +156,7 @@ const ViewRecruitmentRoundsPage = () => {
       semester,
       year,
       openings_count,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ].some((value: any) =>
       value.toString().toLowerCase().includes(filter.toLowerCase()),
     );
@@ -255,6 +257,7 @@ const ViewRecruitmentRoundsPage = () => {
                     Showing{" "}
                     {
                       data.filter(
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         (item: any) => item.status == "I" || item.status == "A",
                       ).length
                     }
@@ -276,7 +279,7 @@ const ViewRecruitmentRoundsPage = () => {
             </Grid>
           </Grid>
 
-          <TableContainer component={Paper} style={styles.scrollableTableBody}>
+          <TableContainer component={Paper}>
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
@@ -317,8 +320,10 @@ const ViewRecruitmentRoundsPage = () => {
                       </TableRow>
                     ))
                   : data
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       .filter((item: any) => item.status != "R")
                       .filter(filterData)
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       .map((item: any) => {
                         return (
                           <TableRow key={item.id}>
@@ -358,13 +363,13 @@ const ViewRecruitmentRoundsPage = () => {
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle2">
+              {/* <Typography variant="subtitle2">
                 Showing{" "}
                 {data.filter((item: any) => item.status == "R").length < 3
                   ? data.filter((item: any) => item.status == "R").length
                   : SHOW_ARCHIVED_AMOUNT}{" "}
                 of {data.filter((item: any) => item.status == "R").length}
-              </Typography>
+              </Typography> */}
             </Grid>
           </Grid>
 
@@ -401,8 +406,10 @@ const ViewRecruitmentRoundsPage = () => {
                       </TableRow>
                     ))
                   : data
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       .filter((item: any) => item.status == "R")
                       .slice(0, SHOW_ARCHIVED_AMOUNT)
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       .map((item: any) => {
                         return (
                           <TableRow key={item.id}>

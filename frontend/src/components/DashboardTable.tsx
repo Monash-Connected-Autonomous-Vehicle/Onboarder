@@ -17,10 +17,17 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RoleIcon from "../util/RoleIcon";
 import { useAuthStore } from "../util/stores/authStore";
-import { useStudentTeamStore } from "../util/stores/studentTeamStore";
+import {
+  StudentTeam,
+  useStudentTeamStore,
+} from "../util/stores/studentTeamStore";
 import { getBaseAPIURL } from "../util/Util";
 
 export interface StudentTeamResultProps {
+  student_team_description: string;
+  owner_email: string;
+  your_role: string;
+  profile_id: string;
   id: number; // user id
   student_team_id: number;
   student_team_name: string;
@@ -46,8 +53,8 @@ const modalStyle = {
 };
 
 const generateRowFunction = (
-  results: StudentTeamResultProps[],
-  setModalData: (data: StudentTeamResultProps) => void,
+  results: StudentTeam[],
+  setModalData: (data: StudentTeam) => void,
   setDeleteModalOpen: (open: boolean) => void,
   setLeaveModalOpen: (open: boolean) => void,
   handleView: (
@@ -114,9 +121,7 @@ export function DashboardTable({ newTeam }: DashboardTableProps) {
   // State hooks
 
   const [loading, setLoading] = useState(true);
-  const [modalData, setModalData] = useState<StudentTeamResultProps | null>(
-    null,
-  );
+  const [modalData, setModalData] = useState<StudentTeam>();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [leaveModalOpen, setLeaveModalOpen] = useState(false);
 
@@ -145,7 +150,7 @@ export function DashboardTable({ newTeam }: DashboardTableProps) {
         `${BASE_API_URL}/profile/${profileId}/student-teams`, // Working
       );
       const tableData = response.data
-        .map((role: any) => ({
+        .map((role: StudentTeamResultProps) => ({
           id: role.profile_id, // Assuming the API returns a user id
           student_team_id: role.student_team_id,
           student_team_name: role.student_team_name,
@@ -187,7 +192,7 @@ export function DashboardTable({ newTeam }: DashboardTableProps) {
   const handleCloseModal = () => {
     setDeleteModalOpen(false);
     setLeaveModalOpen(false);
-    setModalData(null);
+    setModalData({} as StudentTeam);
   };
 
   const handleDeleteOrLeave = async (

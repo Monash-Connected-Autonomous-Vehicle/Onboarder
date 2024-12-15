@@ -57,11 +57,11 @@ const generateSkeletonRows = () => {
 function OnboarderOpeningsPage() {
   const [openings, setOpening] = useState<onboarderOpeningResultProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const [year, setYear] = useState("All");
-  const [semester, setSemester] = useState("All");
+  const [year] = useState("All");
+  const [semester] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
-  const [openingFilter, setOpeningFilter] = useState("");
-  const [teamFilter, setTeamFilter] = useState("");
+  const [openingFilter] = useState("");
+  const [teamFilter] = useState("");
   const BASE_API_URL = getBaseAPIURL();
   const navigate = useNavigate();
 

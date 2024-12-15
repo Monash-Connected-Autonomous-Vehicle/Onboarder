@@ -1,11 +1,11 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
 import axios from "axios";
-import format from "date-fns/format";
-import getDay from "date-fns/getDay";
+import { format } from "date-fns/format";
+import { getDay } from "date-fns/getDay";
 import { enAU } from "date-fns/locale";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
+import { parse } from "date-fns/parse";
+import { startOfWeek } from "date-fns/startOfWeek";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
@@ -66,7 +66,7 @@ const ManuallyScheduleInterviewPage: React.FC = () => {
     }
   }, [selectedApplicant]);
 
-  const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
+  const handleSelectSlot = ({ start }: { start: Date; end: Date }) => {
     // Ensure the slot is exactly 30 minutes
     const thirtyMinutesLater = moment(start).add(30, "minutes").toDate();
     // Create a new event
@@ -191,8 +191,8 @@ const ManuallyScheduleInterviewPage: React.FC = () => {
             <DragAndDropCalendar
               localizer={localizer}
               events={eventsList}
-              startAccessor="start"
-              endAccessor="end"
+              // startAccessor="start"
+              // endAccessor="end"
               style={{ height: "75vh" }}
               defaultView="week"
               views={["week"]}

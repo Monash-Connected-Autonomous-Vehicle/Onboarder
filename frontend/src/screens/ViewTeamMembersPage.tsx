@@ -33,13 +33,7 @@ const ViewTeamMembersPage: React.FC = () => {
     severity: "info",
   });
 
-  const {
-    team_id: studentTeamId,
-    team_name,
-    ability,
-    role,
-    profile,
-  } = useAuthStore();
+  const { team_id: studentTeamId, team_name, role, profile } = useAuthStore();
 
   useEffect(() => {
     const fetchTeamMembers = async () => {
@@ -61,29 +55,31 @@ const ViewTeamMembersPage: React.FC = () => {
         }
 
         // Fetch student information for each member
-        const membersPromises = profileTeamInfo.map(async (memberInfo: any) => {
-          try {
-            const studentResponse = await axios.get(
-              `${BASE_API_URL}/profile/${memberInfo.profile_id}`, // Working
-            );
-            const studentInfo = studentResponse.data[0];
+        const membersPromises = profileTeamInfo.map(
+          async (memberInfo: TeamMember) => {
+            try {
+              const studentResponse = await axios.get(
+                `${BASE_API_URL}/profile/${memberInfo.profile_id}`, // Working
+              );
+              const studentInfo = studentResponse.data[0];
 
-            if (studentInfo) {
-              return {
-                email: studentInfo.email,
-                role: getRoleText(memberInfo.role),
-                profile_id: memberInfo.profile_id,
-              };
+              if (studentInfo) {
+                return {
+                  email: studentInfo.email,
+                  role: getRoleText(memberInfo.role),
+                  profile_id: memberInfo.profile_id,
+                };
+              }
+              return null;
+            } catch (error) {
+              console.error(
+                `Error fetching student info for profile ${memberInfo.profile_id}:`,
+                error,
+              );
+              return null;
             }
-            return null;
-          } catch (error) {
-            console.error(
-              `Error fetching student info for profile ${memberInfo.profile_id}:`,
-              error,
-            );
-            return null;
-          }
-        });
+          },
+        );
 
         const resolvedMembers = await Promise.all(membersPromises);
         setMembers(
@@ -151,7 +147,7 @@ const ViewTeamMembersPage: React.FC = () => {
   };
 
   const handleCloseSnackbar = (
-    event?: React.SyntheticEvent | Event,
+    _event: React.SyntheticEvent | Event,
     reason?: string,
   ) => {
     if (reason === "clickaway") {
@@ -198,7 +194,7 @@ const ViewTeamMembersPage: React.FC = () => {
         members={members}
         onRemove={handleRemove}
         currentUserProfileId={profile}
-        userRole={role}
+        userRole={role ?? ""}
       />
       <InviteMemberModal
         open={isInviteModalOpen}

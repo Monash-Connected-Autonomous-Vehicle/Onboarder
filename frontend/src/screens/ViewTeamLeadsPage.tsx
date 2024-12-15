@@ -31,8 +31,8 @@ export interface TeamLeadProps {
 function ViewTeamLeadsPage() {
   const navigate = useNavigate();
   // State to store the list of team leads
-  const [teamLeads, setTeamLeads] = useState<TeamLeadProps[]>([]);
-  const { team_id, team_name } = useAuthStore();
+  // const [teamLeads, setTeamLeads] = useState<TeamLeadProps[]>([]);
+  const { team_id } = useAuthStore();
   // State to manage loading status
   const [loading, setLoading] = useState(true);
   const [members, setMembers] = useState<TeamMember[]>([]);
@@ -61,28 +61,30 @@ function ViewTeamLeadsPage() {
         }
 
         // Fetch student information for each member
-        const membersPromises = profileTeamInfo.map(async (memberInfo: any) => {
-          try {
-            const studentResponse = await axios.get(
-              `${BASE_API_URL}/profile/${memberInfo.profile_id}`,
-            );
-            const studentInfo = studentResponse.data[0];
+        const membersPromises = profileTeamInfo.map(
+          async (memberInfo: TeamMember) => {
+            try {
+              const studentResponse = await axios.get(
+                `${BASE_API_URL}/profile/${memberInfo.profile_id}`,
+              );
+              const studentInfo = studentResponse.data[0];
 
-            if (studentInfo) {
-              return {
-                email: studentInfo.email,
-                profile_id: memberInfo.profile_id,
-              };
+              if (studentInfo) {
+                return {
+                  email: studentInfo.email,
+                  profile_id: memberInfo.profile_id,
+                };
+              }
+              return null;
+            } catch (error) {
+              console.error(
+                `Error fetching student info for profile ${memberInfo.profile_id}:`,
+                error,
+              );
+              return null;
             }
-            return null;
-          } catch (error) {
-            console.error(
-              `Error fetching student info for profile ${memberInfo.profile_id}:`,
-              error,
-            );
-            return null;
-          }
-        });
+          },
+        );
 
         const resolvedMembers = await Promise.all(membersPromises);
         setMembers(
