@@ -717,8 +717,7 @@ def create_interview_event_with_attendees(applicant_emails, interviewer_emails, 
     """
 
     if meeting_link != "":
-        description += f"* Meeting Link: {
-            meeting_link} \n\n Please use the Meeting link above to join the interview at the scheduled time."
+        description += f"* Meeting Link: {meeting_link} \n\n Please use the Meeting link above to join the interview at the scheduled time."
     else:
         description += "The specific link for the online interview will be provided closer to the interview date."
 
