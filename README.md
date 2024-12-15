@@ -8,15 +8,30 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Onboarder
+# Onboarder (STILL IN Development)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
+<!-- [![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-) -->
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Recruitment platform for Monash University student teams
+
+
+## Dev Notes
+
+### Backend
+Use either the [original backend](#back-end-setup) (aws lambda & sam) or the flask server (easier for deployment)
+
+#### Flask
+First time set-up only:
+1. Create virtual environment `.venv` and install from requirements.py 
+  - `python3 -m venv .venv`
+  - `. .venv/bin/activate`
+  - `pip install -r requirements.txt`
+
+2. Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server direcotyr 
 
 ## Table of Contents
 
@@ -315,6 +330,10 @@ This is used for deployment. Having it blank means that the codebase will use a 
    ```
 
 #### Supabase Local Development
+Temp notes:
+[Source of docs](https://supabase.com/docs/guides/local-development/overview)
+
+Use `supabase db push --include-seed` to push local seed data to prod
 
 1. Add the `.env` file to the root folder (see configuration details below).
 2. Install [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started?queryGroups=platform&platform=windows)

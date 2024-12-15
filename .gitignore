@@ -1,7 +1,9 @@
 .aws-sam
 .env
 env.json
+.venv
 backend/lambda/venv
+__pycache__/
 
 # Logs
 logs
