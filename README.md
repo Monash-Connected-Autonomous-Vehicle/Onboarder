@@ -37,8 +37,8 @@ Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKA
 2. Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
 
 
-### Front
-[Good guide](https://www.sammeechward.com/deploying-full-stack-js-to-aws-ec2)
+### Front-end deployment
+[Good start](https://www.youtube.com/watch?v=P5RSa9RUPKA&t=476s)
 
 ## Table of Contents
 
