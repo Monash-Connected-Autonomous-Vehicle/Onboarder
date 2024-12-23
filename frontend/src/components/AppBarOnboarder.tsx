@@ -17,6 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../util/stores/authStore";
 import { useRouteProtectionStore } from "../util/stores/routeProtectionStore";
 import { useTheme as useCustomTheme } from "../util/ThemeContext";
+import McavLogo from "../assets/mcav_large_white.svg?react";
 import RoleIcon from "../util/RoleIcon";
 
 /**
@@ -87,12 +88,18 @@ function AppBarOnBoarder() {
         // enableColorOnDark
       >
         <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            Onboarder
+          <Typography>
+            <McavLogo
+              style={{
+                width: 250,
+                height: 60,
+                marginRight: 10,
+                marginTop: 15,
+                marginBottom: 5,
+              }}
+              aria-label="MCAV Logo"
+              //Aria lable is used for accessibility (like alt="")
+            ></McavLogo>
           </Typography>
           {isProtectedRoute && !isDashboard && team_name && role && (
             <Typography

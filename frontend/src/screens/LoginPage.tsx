@@ -3,8 +3,8 @@ import { Box, Button, Typography, Alert } from "@mui/material";
 import { styled } from "@mui/system";
 import { supabase } from "../util/supabaseClient";
 import { useNavigate } from "react-router-dom";
-import loginImageLight from "../assets/onboarder_white.png";
-import loginImageDark from "../assets/onboarder_black.png";
+import loginImageLight from "../assets/mcav_large_white_on_blue.svg";
+import loginImageDark from "../assets/mcav_large_white_on_black.svg";
 import { useTheme as useCustomTheme } from "../util/ThemeContext";
 import { useAuthStore } from "../util/stores/authStore";
 
@@ -42,7 +42,7 @@ const ImageSection = styled(Box)(({ theme }) => ({
 const CoverImage = styled("img")({
   width: "100%",
   height: "80%",
-  objectFit: "cover",
+  objectFit: "fill",
 });
 
 const LoginPage: React.FC = () => {
