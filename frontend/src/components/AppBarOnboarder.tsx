@@ -88,7 +88,12 @@ function AppBarOnBoarder() {
         // enableColorOnDark
       >
         <Toolbar>
-          <Typography>
+          <Typography
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <McavLogo
               style={{
                 width: 250,
@@ -99,7 +104,8 @@ function AppBarOnBoarder() {
               }}
               aria-label="MCAV Logo"
               //Aria lable is used for accessibility (like alt="")
-            ></McavLogo>
+            />
+            MCAV Recruitment Platform
           </Typography>
           {isProtectedRoute && !isDashboard && team_name && role && (
             <Typography

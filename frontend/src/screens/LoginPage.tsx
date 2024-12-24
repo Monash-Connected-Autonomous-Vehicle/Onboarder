@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography, Alert } from "@mui/material";
+import { Box, Button, Typography, Alert, Divider } from "@mui/material";
 import { styled } from "@mui/system";
 import { supabase } from "../util/supabaseClient";
 import { useNavigate } from "react-router-dom";
@@ -108,13 +108,25 @@ const LoginPage: React.FC = () => {
   return (
     <FlexContainer>
       <FormSection>
+        <Typography component="h1" variant="h4" gutterBottom>
+          Welcome to the MCAV Recruitment Platform!
+        </Typography>
+        <Divider
+          orientation="horizontal"
+          flexItem
+          style={{
+            marginLeft: 20,
+            marginRight: 20,
+            marginBottom: 20,
+          }}
+        />
         <Typography component="h1" variant="h5" gutterBottom>
           Log In
         </Typography>
         <Typography variant="body2" color="textSecondary" gutterBottom>
-          Part of a student team? Log in with your Monash email to get started.
+          Part of MCAV? Log in with your Monash email to get started.
         </Typography>
-        <Button variant="contained" onClick={handleMonashLogin} sx={{ mb: 7 }}>
+        <Button variant="contained" onClick={handleMonashLogin} sx={{ mb: 5 }}>
           LOG IN VIA MONASH SSO
         </Button>
 
