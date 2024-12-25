@@ -1,3 +1,4 @@
+// For local deployment
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
@@ -41,12 +42,14 @@ export default defineConfig({
   },
 });
 
-// // For deployment
+// // For prod
+// import react from "@vitejs/plugin-react";
+// import svgr from "vite-plugin-svgr";
 // export default {
 //   // config options
 //   server: {
 //     host: true,
 //     port: 80,
 //   },
-//   plugins: [svgr()],
+//   plugins: [react(), svgr()],
 // };

@@ -46,6 +46,7 @@ This is a good idea to do if testing database-related functions. Not required if
 #### Prod Notes
 - comment out `redirectTo` line of signInWithOAuth in frontend/src/screens/LoginPage.tsx
 - Update envs according to the comments in each of them
+- Uncomment the prod section of `vite.config.ts` and comment out other sections
 
 **Front-end deployment to prod**
 [Good start](https://www.youtube.com/watch?v=P5RSa9RUPKA&t=476s)
