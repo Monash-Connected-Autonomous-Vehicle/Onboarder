@@ -57,7 +57,7 @@ const LoginPage: React.FC = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google", // You can replace this with your Monash SSO logic if available
         options: {
-          redirectTo: "http://127.0.0.1:80/login",
+          redirectTo: "http://127.0.0.1:5173", // TODO (Deployment): Change redirect to prod url
         },
       });
 

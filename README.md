@@ -18,7 +18,6 @@ You should have received a copy of the GNU General Public License along with thi
 
 Recruitment platform for Monash University student teams
 
-
 ## Dev Notes
 
 ### Backend
@@ -29,16 +28,30 @@ Use either the [original backend](#back-end-setup) (aws lambda & sam) or the fla
 Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
 
 #### Local Flask Deployment
-1. Create virtual environment `.venv` and install from requirements.py 
+1. (First-time only) Create virtual environment `.venv` and install from requirements.py 
   - `python3 -m venv .venv`
   - `. .venv/bin/activate`
   - `pip install -r requirements.txt`
 
-2. Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
+2. (First-time only) Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
+3. Run the app (`cd` to `flask_server` directory if you haven't already): `flask --app app run`
 
 
-### Front-end deployment
+#### Local Supabase
+This is a good idea to do if testing database-related functions. Not required if modifying frontend nor when migrating from orginal_backend to flask_server
+1. Have docker application running in the background
+2. Go to root of project and run `supabase start` (might need to first run `supabase stop` to stop existing containers)
+
+
+#### Prod Notes
+- comment out `redirectTo` line of signInWithOAuth in frontend/src/screens/LoginPage.tsx
+- Update envs according to the comments in each of them
+
+**Front-end deployment to prod**
 [Good start](https://www.youtube.com/watch?v=P5RSa9RUPKA&t=476s)
+
+
+--- END of MCAV NOTES ---
 
 ## Table of Contents
 
