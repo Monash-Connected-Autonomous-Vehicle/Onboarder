@@ -28,6 +28,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useOpeningStore } from "../util/stores/openingApplicantStore";
 import { getBaseAPIURL } from "../util/Util";
+import ResumeUploader from "../components/ResumeUploader";
 
 interface Opening {
   opening_title: string;
@@ -424,6 +425,10 @@ function ApplicationSubmissionPage() {
             helperText={errors.semesterRemaining}
             placeholder="e.g. 3"
           />
+        </Grid>
+        // TODO: WRITE THE RESUME ADDER LOGIC
+        <Grid item xs={7}>
+          <ResumeUploader />
         </Grid>
       </Grid>
 

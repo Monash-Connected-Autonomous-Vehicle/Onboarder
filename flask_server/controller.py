@@ -767,3 +767,6 @@ def create_interview_event_with_attendees(applicant_emails, interviewer_emails, 
     except Exception as e:
         print(f"An error occurred while creating the event: {e}")
         return None
+
+
+# -------------- RESUME UPLOAD CONTROLLERS --------------

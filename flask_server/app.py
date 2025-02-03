@@ -34,3 +34,14 @@ def get_all_recruitment_rounds_for_student_team(student_team_id):
     data = controller.get_all_recruitment_rounds_for_student_team(student_team_id)
     return json.dumps(data)
 
+@app.get('/upload-resume')
+def save_resume_to_database():
+    return "Resume Function Called"
+
+@app.get('/')
+def welcome():
+    return "MCAV Onboarder Flask Backend"
+
+if __name__ == "__main__":
+    app.run()
+
