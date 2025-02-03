@@ -19,37 +19,52 @@ You should have received a copy of the GNU General Public License along with thi
 Recruitment platform for Monash University student teams
 
 ## Dev Notes
+### env setup
+```
+./frontend/.env (frontend .env in GDrive)
+./flask_server/.env (flask_server .env in GDrive)
+./.env (Main .env in GDrive)
+./env.json (Main env.json in GDrive)
+```
 
 ### Backend
 Use either the [original backend](#back-end-setup) (aws lambda & sam) or the flask server (easier for deployment)
 
-#### Flask Deployment on AWS EC2
-[Follow these instructions](https://github.com/yeshwanthlm/YouTube/blob/main/flask-on-aws-ec2.md)
-Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
-
 #### Local Flask Deployment
 1. (First-time only) Create virtual environment `.venv` and install from requirements.py 
+  - [more deets](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
   - `python3 -m venv .venv`
   - `. .venv/bin/activate`
   - `pip install -r requirements.txt`
+2. Run the app (`cd` to `flask_server` directory if you haven't already): `flask --app app run`
 
-2. (First-time only) Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
-3. Run the app (`cd` to `flask_server` directory if you haven't already): `flask --app app run`
+### Frontend
+#### Local Frontend Deployment
+1. Go to frontend directory `cd frontend`
 
+Then:
+```bash
+npm install
+npm run dev
+```
+If you don't have `npm`, make sure you install using [official docs](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 #### Local Supabase
 This is a good idea to do if testing database-related functions. Not required if modifying frontend nor when migrating from orginal_backend to flask_server
 1. Have docker application running in the background
 2. Go to root of project and run `supabase start` (might need to first run `supabase stop` to stop existing containers)
 
-
 #### Prod Notes
 - comment out `redirectTo` line of signInWithOAuth in frontend/src/screens/LoginPage.tsx
 - Update envs according to the comments in each of them
 - Uncomment the prod section of `vite.config.ts` and comment out other sections
 
-**Front-end deployment to prod**
+**Front-end deployment to prod** 
 [Good start](https://www.youtube.com/watch?v=P5RSa9RUPKA&t=476s)
+
+**Flask Deployment on AWS EC2** 
+[Follow these instructions](https://github.com/yeshwanthlm/YouTube/blob/main/flask-on-aws-ec2.md)
+Get the env from [here](https://drive.google.com/file/d/1J2Ce2xQI8OPWSScd0B2scKAxX50Czdez/view?usp=sharing) (only MCAV members have access) and paste it in the flask_server directory 
 
 
 --- END of MCAV NOTES ---
