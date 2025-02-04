@@ -1,6 +1,6 @@
 import controller
 import json
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -34,14 +34,18 @@ def get_all_recruitment_rounds_for_student_team(student_team_id):
     data = controller.get_all_recruitment_rounds_for_student_team(student_team_id)
     return json.dumps(data)
 
-@app.get('/upload-resume')
+@app.post('/upload-resume')
 def save_resume_to_database():
-    return "Resume Function Called"
+    file = request.files['file']
+    opening_id = request.form["opening_id"]
+    mobile_number = request.form["applicant_mobile"]
+
+    controller.upload_resume_to_applicant_record(file, opening_id, mobile_number)
 
 @app.get('/')
 def welcome():
     return "MCAV Onboarder Flask Backend"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
 

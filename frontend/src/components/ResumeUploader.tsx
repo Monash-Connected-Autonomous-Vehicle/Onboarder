@@ -3,7 +3,13 @@ import { ChangeEvent, useState } from "react";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
-export default function ResumeUploader() {
+export default function ResumeUploader({
+  opening,
+  applicantMobileNumber,
+}: {
+  opening: string;
+  applicantMobileNumber: string;
+}) {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<UploadStatus>("idle");
 
@@ -19,7 +25,10 @@ export default function ResumeUploader() {
     setStatus("uploading");
 
     const formData = new FormData();
+    // prep backend data block
     formData.append("file", file);
+    formData.append("opening_id", opening);
+    formData.append("applicant_mobile", applicantMobileNumber);
 
     try {
       await axios.post("http://127.0.0.1:5000/upload-resume", formData, {
@@ -52,7 +61,7 @@ export default function ResumeUploader() {
 
       {status === "success" && <p>File Uploaded Successfully</p>}
 
-      {status === "success" && <p>Error, Please try again</p>}
+      {status === "error" && <p>Error, Please try again</p>}
     </div>
   );
 }

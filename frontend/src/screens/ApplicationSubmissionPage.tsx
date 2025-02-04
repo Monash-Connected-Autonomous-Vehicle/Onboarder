@@ -427,8 +427,11 @@ function ApplicationSubmissionPage() {
           />
         </Grid>
         // TODO: WRITE THE RESUME ADDER LOGIC
-        <Grid item xs={7}>
-          <ResumeUploader />
+        <Grid item xs={6}>
+          <ResumeUploader
+            opening={openingId}
+            applicantMobileNumber={formData.phoneNumber}
+          />
         </Grid>
       </Grid>
 

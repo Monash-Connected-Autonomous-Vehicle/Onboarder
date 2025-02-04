@@ -770,3 +770,14 @@ def create_interview_event_with_attendees(applicant_emails, interviewer_emails, 
 
 
 # -------------- RESUME UPLOAD CONTROLLERS --------------
+def upload_resume_to_applicant_record(resume_file, opening_id, applicant_mobile_number):
+    response = supabase.storage.from_('applicant-resumes').upload(
+            file=resume_file.read(),
+            path=f"{opening_id}/{applicant_mobile_number}",
+            file_options={"cache-control": "3600", "upsert": "false"},
+        )
+
+    
+
+
+    
