@@ -14,6 +14,7 @@ from google.auth.transport.requests import Request
 from google.auth.exceptions import RefreshError
 from google.auth import _helpers
 import pytz
+import boto3
 
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -24,6 +25,19 @@ load_dotenv(dotenv_path)
 url = os.environ.get('SUPABASE_URL')
 key = os.environ.get('SUPABASE_KEY')
 supabase: Client = create_client(url, key)
+
+#s3 storage
+s3_access_key = os.environ.get('SUPABASE_S3_ACCESS_KEY')
+s3_secret_key = os.environ.get('SUPABSE_S3_SECRET_KEY')
+s3_endpoint = os.environ.get('S3_ENDPOINT')
+encryption_key = os.environ.get('ENCRYPTION_KEY')
+
+# s3 client
+s3_client = boto3.client(
+        "s3",
+        endpoint_url=s3_endpoint,
+        aws_access_key_id=s3_access_key,
+        aws_secret_access_key=s3_secret_key)
 
 # -------------- ALL APPLICATION CONTROLLERS --------------
 
@@ -771,13 +785,10 @@ def create_interview_event_with_attendees(applicant_emails, interviewer_emails, 
 
 # -------------- RESUME UPLOAD CONTROLLERS --------------
 def upload_resume_to_applicant_record(resume_file, opening_id, applicant_mobile_number):
-    response = supabase.storage.from_('applicant-resumes').upload(
-            file=resume_file.read(),
-            path=f"{opening_id}/{applicant_mobile_number}",
-            file_options={"cache-control": "3600", "upsert": "false"},
-        )
 
-    
-
-
-    
+    s3_client.upload_fileobj(
+        resume_file,
+        'applicant-resume',
+        f"{opening_id}/{applicant_mobile_number}",
+        ExtraArgs={'ACL': 'public-read'}
+    )
